@@ -65,6 +65,7 @@ public class EncryptIO {
         SecretKeySpec secretKeySpec = new SecretKeySpec(keyByte, "AES");
         IvParameterSpec iv = new IvParameterSpec(keyByte);
 
+        //init cipher
         try {
             cipher1.init(Cipher.DECRYPT_MODE, secretKeySpec, iv);
         } catch (InvalidKeyException e) {
@@ -74,15 +75,13 @@ public class EncryptIO {
         }
 
         FileInputStream fis = null;
-        CipherInputStream cis = null;
-
         try {
             fis = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             throw new EncryptIOException("Encrypt: File not found");
         }
-        cis = new CipherInputStream(fis, cipher1);
-        return cis;
+
+        return new CipherInputStream(fis, cipher1);
     }
 
     public static OutputStream EncryptStream(String file, char[] key) throws EncryptIOException {
@@ -109,6 +108,7 @@ public class EncryptIO {
         SecretKeySpec secretKeySpec = new SecretKeySpec(keyByte, "AES");
         IvParameterSpec iv = new IvParameterSpec(keyByte);
 
+        // Init the cipher
         try {
             encryptCipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, iv);
         } catch (InvalidKeyException e) {
@@ -123,7 +123,7 @@ public class EncryptIO {
         } catch (FileNotFoundException e) {
             throw new EncryptIOException("Encrypt: File not found");
         }
-        CipherOutputStream cipherOutputStream = new CipherOutputStream(fos, encryptCipher);
-        return cipherOutputStream;
+
+        return new CipherOutputStream(fos, encryptCipher);
     }
 }
