@@ -87,6 +87,7 @@ public class main_gui {
 
                 if (okCxl == JOptionPane.OK_OPTION) {
                     key = pf.getPassword();
+                    save_button.setEnabled(true);
                 }
             }
         });
