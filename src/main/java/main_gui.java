@@ -55,6 +55,11 @@ public class main_gui {
                     e.printStackTrace();
                 }
 
+                if(os == null) {
+                    System.out.println("Error: Output stream error");
+                    return;
+                }
+
                 try {
                     text_body.write(new OutputStreamWriter(os));
                     success = true;
@@ -95,9 +100,8 @@ public class main_gui {
             }
         });
 
-        InputStream is = null;
         try {
-            is = EncryptIO.DecryptStream(file, key);
+            InputStream is = EncryptIO.DecryptStream(file, key);
             try {
                 text_body.read(new InputStreamReader(is), null);
             } catch (IOException e) {

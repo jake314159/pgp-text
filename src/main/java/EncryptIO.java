@@ -16,23 +16,6 @@ import java.util.Arrays;
  */
 public class EncryptIO {
 
-    public static void main(String args[]) throws IOException, EncryptIOException {
-        char[] key = new char[] {'p','a','s','s'};
-        OutputStream os = EncryptIO.EncryptStream("testFile", key);
-        os.write(toByteArray(key));
-        os.flush();
-        os.close();
-
-        System.out.println("Write complete!");
-        InputStream is = EncryptIO.DecryptStream("testFile", key);
-        int c = (char)is.read();
-        while(c>=0) {
-            System.out.print((char) c);
-            c = is.read();
-        }
-        is.close();
-    }
-
     private static byte[] toByteArray(char[] key) {
         byte[] b = new byte[key.length];
         for(int i=0; i<key.length; i++) {
