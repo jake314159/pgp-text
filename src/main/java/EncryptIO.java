@@ -25,9 +25,9 @@ public class EncryptIO {
     }
 
     public static InputStream DecryptStream(String file, char[] key) throws EncryptIOException {
-        Cipher cipher1 = null;
+        Cipher cipher;
         try {
-            cipher1 = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         } catch (NoSuchAlgorithmException e) {
             throw new EncryptIOException("Decrypt: No such cipher algorithm");
         } catch (NoSuchPaddingException e) {
@@ -36,7 +36,7 @@ public class EncryptIO {
 
         //make the key
         byte[] keyByte = toByteArray(key);
-        MessageDigest sha = null;
+        MessageDigest sha;
         try {
             sha = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e) {
@@ -50,27 +50,27 @@ public class EncryptIO {
 
         //init cipher
         try {
-            cipher1.init(Cipher.DECRYPT_MODE, secretKeySpec, iv);
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, iv);
         } catch (InvalidKeyException e) {
             throw new EncryptIOException("Decrypt: Invalid key");
         } catch (InvalidAlgorithmParameterException e) {
             throw new EncryptIOException("Decrypt: Invalid algorithm");
         }
 
-        FileInputStream fis = null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             throw new EncryptIOException("Encrypt: File not found");
         }
 
-        return new CipherInputStream(fis, cipher1);
+        return new CipherInputStream(fis, cipher);
     }
 
     public static OutputStream EncryptStream(String file, char[] key) throws EncryptIOException {
-        Cipher encryptCipher = null;
+        Cipher cipher;
         try {
-            encryptCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         } catch (NoSuchAlgorithmException e) {
             throw new EncryptIOException("Encrypt: No such cipher algorithm");
         } catch (NoSuchPaddingException e) {
@@ -79,7 +79,7 @@ public class EncryptIO {
 
         //make the key
         byte[] keyByte = toByteArray(key);
-        MessageDigest sha = null;
+        MessageDigest sha;
         try {
             sha = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e) {
@@ -93,7 +93,7 @@ public class EncryptIO {
 
         // Init the cipher
         try {
-            encryptCipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, iv);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, iv);
         } catch (InvalidKeyException e) {
             throw new EncryptIOException("Encrypt: Invalid key");
         } catch (InvalidAlgorithmParameterException e) {
@@ -107,6 +107,6 @@ public class EncryptIO {
             throw new EncryptIOException("Encrypt: File not found");
         }
 
-        return new CipherOutputStream(fos, encryptCipher);
+        return new CipherOutputStream(fos, cipher);
     }
 }
