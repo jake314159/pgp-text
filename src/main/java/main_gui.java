@@ -94,10 +94,23 @@ public class main_gui {
         exit_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                for(int i=0; i<key.length;i++) {
-                    key[i] = (char)0; //zero the key
+                boolean exitOK = false;
+
+                if(save_button.isEnabled()) {
+                    // About to lose data so check with the user
+                    if (JOptionPane.showConfirmDialog(null,  "You are about to lose some data\nAre you sure you want to exit?", "Exit?",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                        exitOK = true;
+                    }
+                } else {
+                    exitOK = true;
                 }
-                System.exit(0);
+                if(exitOK) {
+                    for (int i = 0; i < key.length; i++) {
+                        key[i] = (char) 0; //zero the key
+                    }
+                    System.exit(0);
+                }
             }
         });
 
