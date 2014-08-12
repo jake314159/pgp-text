@@ -18,8 +18,10 @@
           <component id="a93e3" class="javax.swing.JTextArea" binding="text_body">
             <constraints/>
             <properties>
+              <lineWrap value="true"/>
               <rows value="10"/>
               <text value=""/>
+              <wrapStyleWord value="true"/>
             </properties>
           </component>
         </children>
