@@ -1,25 +1,27 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
 
-/**
- * Created by jake on 12/08/14.
- */
-public class main_gui {
+public class EditorWindow extends JFrame{
+
+    private static final String title = "PGP-Text";
+
     private String file;
     private char[] key;
 
-    public JPanel panel1;
-    private JTextArea text_body;
-    private JButton save_button;
-    private JButton change_button;
-    private JButton exit_button;
+    public JPanel buttonPanel = new JPanel();
+    private JTextArea text_body = new JTextArea();
+    private JButton save_button = new JButton("Save");
+    private JButton change_button = new JButton("Change password");
+    private JButton exit_button = new JButton("Exit");
 
-    public main_gui(String file_in) {
-        this.file = file_in;
+    public EditorWindow(String file_in) throws HeadlessException {
+        super(title);
+
 
         // No file given so lets ask the user what they want to open
         if(this.file == null) {
@@ -28,6 +30,7 @@ public class main_gui {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file_selected = fc.getSelectedFile();
                 this.file = file_selected.getAbsolutePath();
+                setTitle(title + " ["+file_selected.getName()+"]");
             } else {
                 System.exit(0);
             }
@@ -132,5 +135,17 @@ public class main_gui {
                 save_button.setEnabled(true);
             }
         });
+
+        buttonPanel.setLayout(new BorderLayout());
+        buttonPanel.add(text_body, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.add(save_button);
+        buttonPanel.add(change_button);
+        buttonPanel.add(exit_button);
+        this.buttonPanel.add(buttonPanel, BorderLayout.NORTH);
+
+        setContentPane(this.buttonPanel);
     }
 }

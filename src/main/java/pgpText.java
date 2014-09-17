@@ -13,8 +13,7 @@ public class pgpText {
             file = args[0];
         }
 
-        JFrame frame = new JFrame("PGP text ["+file+"]");
-        frame.setContentPane(new main_gui(file).panel1);
+        JFrame frame = new EditorWindow(file);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500,500);
         frame.setVisible(true);
