@@ -13,7 +13,7 @@ public class EditorWindow extends JFrame{
     private String file;
     private char[] key;
 
-    public JPanel buttonPanel = new JPanel();
+    private JPanel buttonPanel = new JPanel();
     private JTextArea text_body = new JTextArea();
     private JButton save_button = new JButton("Save");
     private JButton change_button = new JButton("Change password");
